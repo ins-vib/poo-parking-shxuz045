@@ -1,0 +1,48 @@
+Class Vehicle {
+- matricula : String 
+- mida : MidaVehicle
+
++ getMatricula() : String
++ getMida() : Vehicle 
+}
+
+Vehicle "1" --> "1" Plaça: aparcat
+
+
+Class Motocicleta {
++ Motocicleta () 
+}
+
+Class Cotxe {
++ Cotxe ()
+
+}
+
+Class Camio {
++ Camio () 
+
+}
+
+Class PlaçaAparcament {
+    - numero 
+    - estat : boolean
+    - vehicleApartat : Vehicle
+    - coordenades : Coordenada []
+}
+PlaçaAparcament "*" --> "4*" Coordenada : té
+
+Class PlaçaParking {
+    + aparcar
+}
+PlaçaAparcament "*" --> "1" PlaçaParkingS
+
+Class Coordenada {
+    - y : double
+    - x : double
+}
+
+Enum midaVehicle {
+    PETIT
+    GRAN 
+    MITJA
+}
