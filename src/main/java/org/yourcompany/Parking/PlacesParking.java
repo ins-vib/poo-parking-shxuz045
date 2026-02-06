@@ -11,8 +11,22 @@ public class PlacesParking {
     protected ArrayList<PlacaAparcament> places;
     private ArrayList<Ticket> tickets;
 
+    public PlacesParking(ArrayList<PlacaAparcament> places, ArrayList<Ticket> tickets) {
+        this.places = places;
+        this.tickets = tickets;
+    }
+
     public PlacesParking(ArrayList<PlacaAparcament> places) {
         this.places = places;
+    }
+
+    public Ticket getTickets(int numero) {
+        for (Ticket t : tickets) {
+            if (t.getNumero() == numero) {
+                return t;
+            }
+        }
+        return null;
     }
 
     public void mostrarEstat() {

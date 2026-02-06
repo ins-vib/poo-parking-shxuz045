@@ -21,13 +21,13 @@ public abstract class PlacaAparcament {
 
     public void aparcar(Vehicle vehicle) {
         if (vehicle == null) {
-            throw new IllegalStateException("Vehicle incorrecte");
+            throw new IllegalArgumentException("Vehicle incorrecte");
         }
         if (!this.compatible(vehicle)) {
-            throw new IllegalStateException("La plaça no es compatible");
+            throw new IllegalArgumentException("La plaça no es compatible");
         }
         if (this.isOcupada()) {
-            throw new IllegalStateException("La plaça ja està ocupada");
+            throw new IllegalArgumentException("La plaça ja està ocupada");
         }
 
         this.vehicleAparcat = vehicle;
