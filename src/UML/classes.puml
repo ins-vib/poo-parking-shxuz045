@@ -1,48 +1,97 @@
-Class Vehicle {
-- matricula : String 
+enum MidaVehicle {
+    PETIT
+    MITJA
+    GRAN
+}
+
+abstract Class Vehicle {
+- matricula : String
 - mida : MidaVehicle
 
 + getMatricula() : String
-+ getMida() : Vehicle 
++ getMida() : MidaVehicle
 }
 
-Vehicle "1" --> "1" Plaça: aparcat
+Vehicle "1" --> "1" PlacaAparcament : aparcat
 
 
 Class Motocicleta {
-+ Motocicleta () 
++ Motocicleta(matricula : String)
 }
 
 Class Cotxe {
-+ Cotxe ()
-
++ Cotxe(matricula : String)
 }
 
 Class Camio {
-+ Camio () 
-
++ Camio(matricula : String)
 }
 
-Class PlaçaAparcament {
-    - numero 
+Vehicle <-- Motocicleta
+Vehicle <-- Cotxe
+Vehicle <-- Camio
+
+
+abstract Class PlacaAparcament {
+    - numero : int
     - estat : boolean
-    - vehicleApartat : Vehicle
-    - coordenades : Coordenada []
-}
-PlaçaAparcament "*" --> "4*" Coordenada : té
+    - vehicleAparcat : Vehicle
+    - coordenades : Coordenada[]
+    - midaMaxima : MidaVehicle
 
-Class PlaçaParking {
-    + aparcar
+    + aparcar(vehicle : Vehicle) : void
+    + desaparcar() : void
+    + estaLliure() : boolean
 }
-PlaçaAparcament "*" --> "1" PlaçaParkingS
+
+PlacaAparcament "1" --> "*" Coordenada : té
+
 
 Class Coordenada {
     - y : double
     - x : double
 }
 
-Enum midaVehicle {
-    PETIT
-    GRAN 
-    MITJA
+
+Class PlacesParking {
+    - places : ArrayList<PlacaAparcament>
+    - tickets : ArrayList<Ticket>
+    + PREU_MINUT : double
+
+    + afegirPlaca(placa : PlacaAparcament) : void
+    + aparcar(vehicle : Vehicle) : Ticket
+    + desaparcar(ticket : Ticket) : double
+    + buscarTicket(id : int) : Ticket
+    + mostrarEstat() : void
+}
+
+PlacaAparcament "1" -- "*" PlacesParking : té
+PlacesParking "1" -- "*" Ticket : gestiona
+
+
+class PlacaCompacta {
+}
+
+class PlacaRegular {
+}
+
+class PlacaGran {
+}
+
+PlacaAparcament <-- PlacaCompacta
+PlacaAparcament <-- PlacaRegular
+PlacaAparcament <-- PlacaGran
+
+
+Class Ticket {
+    - numero : int
+    - vehicle : Vehicle
+    - placa : PlacaAparcament
+    - entrada : LocalDateTime
+    - sortida : LocalDateTime
+
+    + getVehicle() : Vehicle
+    + getPlaca() : PlacAparcament
+    + setSortida() : void
+    + calcularMinuts() : long
 }
