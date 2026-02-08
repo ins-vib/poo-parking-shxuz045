@@ -3,15 +3,15 @@ package org.yourcompany.Parking.places;
 import org.yourcompany.Parking.vehicles.MidaVehicle;
 import org.yourcompany.Parking.vehicles.Vehicle;
 
-public class PlacaRegular extends PlacaAparcament {
+public class PlacaCompacta extends PlacaAparcament {
 
-    public PlacaRegular(int numero, Coordenada[] coordenades) {
+    public PlacaCompacta(int numero, Coordenada[] coordenades) {
         super(numero, coordenades);
     }
 
     @Override
     public boolean compatible(Vehicle vehicle) {
-        return vehicle.getMida() == MidaVehicle.PETIT || vehicle.getMida() == MidaVehicle.MITJA;
+        return vehicle.getMida() == MidaVehicle.PETIT;
     }
 
 }

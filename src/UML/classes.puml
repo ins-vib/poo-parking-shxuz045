@@ -1,97 +1,108 @@
+@startuml
+
 enum MidaVehicle {
     PETIT
     MITJA
     GRAN
 }
 
-abstract Class Vehicle {
-- matricula : String
-- mida : MidaVehicle
-
-+ getMatricula() : String
-+ getMida() : MidaVehicle
+abstract class Vehicle {
+    - matricula : String
+    - mida : MidaVehicle
+    
+    + getMatricula() : String
+    + getMida() : MidaVehicle
 }
 
-Vehicle "1" --> "1" PlacaAparcament : aparcat
+Vehicle "1" --> "1" MidaVehicle
 
-
-Class Motocicleta {
-+ Motocicleta(matricula : String)
+class Motocicleta {
+    + Motocicleta(matricula : String)
 }
 
-Class Cotxe {
-+ Cotxe(matricula : String)
+class Cotxe {
+    + Cotxe(matricula : String)
 }
 
-Class Camio {
-+ Camio(matricula : String)
+class Camio {
+    + Camio(matricula : String)
 }
 
-Vehicle <-- Motocicleta
-Vehicle <-- Cotxe
-Vehicle <-- Camio
+Vehicle <|-- Motocicleta
+Vehicle <|-- Cotxe
+Vehicle <|-- Camio
 
 
-abstract Class PlacaAparcament {
+class Coordenada {
+    - x : double
+    - y : double
+    
+    + getX() : double
+    + getY() : double
+}
+
+
+abstract class PlacaAparcament {
     - numero : int
-    - estat : boolean
     - vehicleAparcat : Vehicle
     - coordenades : Coordenada[]
-    - midaMaxima : MidaVehicle
-
+    
     + aparcar(vehicle : Vehicle) : void
-    + desaparcar() : void
+    + desAparcar() : void
     + estaLliure() : boolean
+    + isOcupada() : boolean
+    + getNumero() : int
 }
 
-PlacaAparcament "1" --> "*" Coordenada : té
-
-
-Class Coordenada {
-    - y : double
-    - x : double
-}
-
-
-Class PlacesParking {
-    - places : ArrayList<PlacaAparcament>
-    - tickets : ArrayList<Ticket>
-    + PREU_MINUT : double
-
-    + afegirPlaca(placa : PlacaAparcament) : void
-    + aparcar(vehicle : Vehicle) : Ticket
-    + desaparcar(ticket : Ticket) : double
-    + buscarTicket(id : int) : Ticket
-    + mostrarEstat() : void
-}
-
-PlacaAparcament "1" -- "*" PlacesParking : té
-PlacesParking "1" -- "*" Ticket : gestiona
-
+PlacaAparcament "1" --> "*" Coordenada
 
 class PlacaCompacta {
+    + compatible(vehicle : Vehicle) : boolean
 }
 
 class PlacaRegular {
+    + compatible(vehicle : Vehicle) : boolean
 }
 
 class PlacaGran {
+    + compatible(vehicle : Vehicle) : boolean
 }
 
-PlacaAparcament <-- PlacaCompacta
-PlacaAparcament <-- PlacaRegular
-PlacaAparcament <-- PlacaGran
+PlacaAparcament <|-- PlacaCompacta
+PlacaAparcament <|-- PlacaRegular
+PlacaAparcament <|-- PlacaGran
 
 
-Class Ticket {
+class Ticket {
     - numero : int
     - vehicle : Vehicle
     - placa : PlacaAparcament
     - entrada : LocalDateTime
     - sortida : LocalDateTime
-
+    
+    + getNumero() : int
     + getVehicle() : Vehicle
-    + getPlaca() : PlacAparcament
+    + getPlaça() : PlacaAparcament
     + setSortida() : void
-    + calcularMinuts() : long
+    + calcularMinutsEstada() : long
 }
+
+Ticket --> Vehicle
+Ticket --> PlacaAparcament
+
+
+class PlacesParking {
+    - places : ArrayList<PlacaAparcament>
+    - tickets : ArrayList<Ticket>
+    + PREU_MINUT : double
+    
+    + aparcar(vehicle : Vehicle) : Ticket
+    + desaparcar(ticket : Ticket) : double
+    + getTickets(numero : int) : Ticket
+    + mostrarEstat() : void
+}
+
+PlacesParking "1" --> "*" PlacaAparcament
+PlacesParking "1" --> "*" Ticket
+
+@enduml

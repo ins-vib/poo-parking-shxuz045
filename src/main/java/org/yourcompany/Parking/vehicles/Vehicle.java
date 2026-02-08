@@ -5,20 +5,14 @@ import java.util.Objects;
 public abstract class Vehicle {
 
     protected String matricula;
-    protected TipusVehicle tipusVehicle;
+    protected MidaVehicle mida;
 
     public String getMatricula() {
-        return matricula;
+        return this.matricula;
     }
 
-    public TipusVehicle getTipusVehicle() {
-        return tipusVehicle;
-    }
-
-    @Override
-    public String toString() {
-        return "Vehicle [matricula=" + matricula + ", tipusVehicle=" + tipusVehicle + ", toString()=" + super.toString()
-                + "]";
+    public MidaVehicle getMida() {
+        return this.mida;
     }
 
     @Override

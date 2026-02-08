@@ -14,28 +14,29 @@ public abstract class PlacaAparcament {
         this.numero = numero;
         this.coordenades = coordenades;
         this.vehicleAparcat = null;
-
     }
 
     public abstract boolean compatible(Vehicle vehicle);
 
     public void aparcar(Vehicle vehicle) {
         if (vehicle == null) {
-            throw new IllegalArgumentException("Vehicle incorrecte");
+            throw new IllegalArgumentException("Vehicle incorrecte!");
         }
         if (!this.compatible(vehicle)) {
-            throw new IllegalArgumentException("La plaça no es compatible");
+            throw new IllegalArgumentException("La plaça no és compatible");
         }
         if (this.isOcupada()) {
             throw new IllegalArgumentException("La plaça ja està ocupada");
         }
-
         this.vehicleAparcat = vehicle;
-
     }
 
     public boolean isOcupada() {
         return this.vehicleAparcat != null;
+    }
+
+    public boolean estaLliure() {
+        return this.vehicleAparcat == null;
     }
 
     public void desAparcar() {
@@ -59,12 +60,12 @@ public abstract class PlacaAparcament {
 
         // String missatge = "PlacaAparcament [numero=" + numero + ", estat=";
         // if (getVehicleAparcat() != null){
-        //     missatge = missatge + "ocupat matricula: " + vehicleAparcat.getMatricula();
+        // missatge = missatge + "ocupat matricula: " + vehicleAparcat.getMatricula();
         // } else {
-        //     missatge = missatge + "lliure";
+        // missatge = missatge + "lliure";
         // }
         // for(int i=0; i< coordenades.length; i++){
-        //     missatge = missatge + coordenades[i].toString();
+        // missatge = missatge + coordenades[i].toString();
         // }
         // return missatge;
         // }
